@@ -1,0 +1,6 @@
+requests==2.22.0
+PyYaml==5.3
+photon-pump==0.9.1
+pandas==1.0.3
+db-sqlite3==0.0.1
+pytest==5.4.1
