@@ -7,6 +7,8 @@ ETL to extract and enrich quote events
 This repository contains the code to run the ETL to extract and load quote events and data used to 
 enrich quotes data.
 
+![diagram](img/diagram.jpg)
+
 ## Requirements
 
 Code is developed in Python 3.7. Before running follow the steps below:
