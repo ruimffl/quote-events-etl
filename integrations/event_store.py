@@ -7,6 +7,14 @@ log = logging.getLogger(name=__name__)
 
 
 async def extract_events_from_stream(connection_parameters, stream, output_file):
+    """
+    Consumes event stream as a batch process and stores results in a json file
+
+    :param connection_parameters: parameters to connect to the Event Store (dict)
+    :param stream: stream name (str)
+    :param output_file:  file to save json objects (str)
+    :return: none
+    """
     with open(output_file, 'w') as out_file:
         async with connect(
                 host=connection_parameters['tcp_host'],

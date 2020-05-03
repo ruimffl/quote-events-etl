@@ -1,5 +1,5 @@
 """
- dr_utils.py contains generic Digital Risks functions used in multiple ETLs
+    dr_utils.py contains generic functions used in multiple ETLs
 """
 
 import yaml
@@ -31,12 +31,13 @@ def get_config_parameters(config_file, top_level_key):
 
 def load_csv_to_db(csv_file, header, db_file, table_name):
     """
+    Loads CSV file in SQLite database
 
-    :param csv_file:
-    :param header:
-    :param db_file:
-    :param table_name:
-    :return:
+    :param csv_file: input csv file to load (str)
+    :param header: columns names to use when not available in input file, if none the first row will be used (str)
+    :param db_file: SQLite database file where data will be loaded (str)
+    :param table_name: talbe where csv file will be loaded (str)
+    :return: none
     """
     conn = sqlite3.connect(db_file)
     df = pd.read_csv(csv_file)
@@ -47,6 +48,13 @@ def load_csv_to_db(csv_file, header, db_file, table_name):
 
 
 def create_db(db_name, output_folder):
+    """
+    Creates SQLite database file
+
+    :param db_name: database name (str)
+    :param output_folder: folder where the database will be created (str)
+    :return: full path to the output file (str)
+    """
     out_file = path.join(output_folder, db_name + '.db')
     sqlite3.connect(out_file)
     log.info(f'SQLite database {db_name}.db created in {output_folder}')

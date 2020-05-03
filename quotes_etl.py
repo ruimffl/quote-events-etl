@@ -45,6 +45,12 @@ logging.getLogger().addHandler(logging.StreamHandler())
 
 
 def extract_quote_fields(event_dict):
+    """
+    Extract quote fields from event object
+
+    :param event_dict: JSON object representing an event (dict)
+    :return: CSV record (lst)
+    """
     csv_record = []
     event_type = event_dict.get('streamMetadata').get('eventType')
 
@@ -105,6 +111,13 @@ def extract_quote_fields(event_dict):
 
 
 def extract_product_fields(quote_id, product_list):
+    """
+    Extract product fields from quote event object
+
+    :param quote_id: id of the quote associated the products refer to (str)
+    :param product_list: array of JSON object representing products (lst)
+    :return:
+    """
     csv_record_list = []
     for product in product_list:
         csv_record = [
