@@ -29,6 +29,12 @@ def get_config_parameters(config_file, top_level_key):
             )
 
 
+# IMPROVEMENTS
+# This function does a 'quick and dirty' load leaving to pandas to decide field types. If implemented in a real-world
+# scenario tables would be persistent, optimised for storage and querying depending on the technology used (indexing,
+# sorting, partitioning, etc.) and ideally check that the number of errors loaded is the expected based on dataframe
+# size.
+
 def load_csv_to_db(csv_file, header, db_file, table_name):
     """
     Loads CSV file in SQLite database
@@ -46,6 +52,10 @@ def load_csv_to_db(csv_file, header, db_file, table_name):
     df.to_sql(table_name, conn, if_exists='replace', index=False)
     log.info(f'File {csv_file} loaded into table {table_name}')
 
+
+# IMPROVEMENTS
+# In a real world scenarion this would be done by a infraestructure deployment process and never by the ETL. This
+# solution was adopted for portability purposes.
 
 def create_db(db_name, output_folder):
     """

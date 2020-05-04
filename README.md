@@ -4,14 +4,18 @@ ETL to extract and enrich quote events
 
 ## Overview
 
-This repository contains the code to run the ETL to extract and load quote events and data used to 
-enrich quotes data.
+This repository contains the code to run the ETL to extract and load quote events and Companies House data extract 
+used to enrich quotes data. The solution can be run using different 
+configurations injected through a config YAML file.
+
+SQLite database can be browsed using [SQLite Browser](https://sqlitebrowser.org/dl/) or other database client.
+
 
 ![diagram](img/diagram.jpg)
 
 ## Requirements
 
-Code is developed in Python 3.7. Before running follow the steps below:
+Code is developed in Python 3.7. Before running:
 
 1- Set up and activate a Python 3.7 virtual environment
 ```

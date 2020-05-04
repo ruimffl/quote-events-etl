@@ -1,3 +1,18 @@
+"""
+    Sub-module to consume event from the Event Store stream
+"""
+
+# IMPROVEMENTS
+# In a real world scenario this would probably run outside the batch ETL as a service pulling the events into file and
+# pushing files to S3 at a set time interval. From my understanding of Event Store, a ETL would be more likely to
+# be pulling consolidated data from projections that I understand are stored in MongoDB at Digital Risks.
+#
+# PhotonPump was chosen to this implementation because it communicates with the Event Store via TCP what is supposed to
+# to be faster then HTTP. The library was also better documented than AttomicPuppy and AttomicPuppy was not handling
+# correctly reaching the last event available in the stream (it was crashing with a permission error)
+#
+# This sub-module should be re-written after understanding better how Event Store is used.
+
 import asyncio
 import json
 import logging

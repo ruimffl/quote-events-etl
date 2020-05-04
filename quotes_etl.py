@@ -1,5 +1,8 @@
 """
-    Extract and enrich quote events
+    Extract and enrich quote events.
+
+    Note: TASK comments along the code are intended to break the code in what would be roughly executed as individual
+    Airflow tasks
 
     Example usage:
         python quotes_etl.py config.yaml
@@ -21,6 +24,18 @@ from utils.dr_utils import get_config_parameters, create_db, load_csv_to_db
 from integrations.event_store import extract_events_from_stream
 
 RESULTS_FOLDER = '../results/'
+
+# IMPROVEMENTS
+# Ideally the ingestion process should cope with new fields being added to the events schemas without required changes
+# in the ingestion process. The solution of picking up a set of fields was intended to get the data quickly in
+# without having to spend much time doing JSON un-nesting. If implemented in Snowflake, the file would be loaded
+# the database as extracted and using the rich JSON manipulation functions available in the database engine
+# the ETL would extract the required data into normalised tables.
+#
+# The process should also consider GDPR compliance as it is currently loading name, phone number and email that are
+# considered PII. A possible solution would be to load all the data 'as is' in ingestion level, and then hash the
+# PII fields before promoting it to database layers with wider access (usually the layer that the BI tool can
+# access).
 
 QUOTE_HEADERS= [
     'quoteId', 'timestamp', 'userId', 'paymentType', 'email', 'reference', 'accountReference', 'sanctionsSearchRecord',
@@ -86,8 +101,8 @@ def extract_quote_fields(event_dict):
         csv_record.append(event_dict.get('premises'))
     else:
         if event_dict.get('contact'):
-            # TO DO
-            # this exception is required because the second level get key will error if the first
+            # IMPROVEMENTS
+            # This exception is required because the second level get key will error if the first
             # level object do not exist. Look for a more elegant solution
             csv_record.append(event_dict.get('contact').get('businessType'))
             csv_record.append(event_dict.get('contact').get('businessName'))
@@ -246,9 +261,11 @@ def main(config_file):
             table_name='company_data',
         )
 
-    # TASK 8 - Enriches quotes with incorporation date
-    # TO DO
-    # Data load in SQLite is of very poor quality and more work needs to be done to ensure data is loading correctly
+    # TASK 8 - Enriches quotes with incorporation date -- NOT I\MPLEMENTED
+
+    # IMPROVEMENTS
+    # Data load in SQLite is very basic and would need more to ensure data is loading correctly (some columns looks
+    # misaligned. Also the performance is so bad that a join was taking over 5 minutes
 
 
 if __name__ == '__main__':

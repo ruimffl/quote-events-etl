@@ -1,8 +1,10 @@
-# Parameters used by the ETL
-#
-# TO DO
-# - replace this file by using parameters stored in a secrets management solution like AWS Secrets Manager or
-#   AWS Parameter Store that will be accessed by the ETL at run time
+"""
+    Parameters used by the ETL
+"""
+
+# IMPROVEMENTS
+#  Replace this file by using parameters stored in a secrets management solution like AWS Secrets Manager or
+#  AWS Parameter Store that will be accessed by the ETL at run time
 
 event_store:
     web_host: 167.99.81.240
